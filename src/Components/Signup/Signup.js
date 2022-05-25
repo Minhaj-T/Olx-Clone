@@ -1,13 +1,14 @@
 import React from 'react';
 import { useState,useContext } from 'react';
-
 import Logo from '../../olx-logo.png';
 import { FirebaseContext } from '../../Store/FirebaseContext';
 import './Signup.css';
+import {useHistory} from "react-router-dom"
 
 
 
 export default function Signup() {
+  const history = useHistory()
   const [username, setusername] = useState("")
   const [email, setemail] = useState('')
   const [phone, setphone] = useState('')
@@ -17,7 +18,17 @@ export default function Signup() {
     e.preventDefault()
     firebase.auth().createUserWithEmailAndPassword(email,password).then((res)=>{
      console.log("this the return result from firebase",res);
-      res.user.updateProfile({displayName:username}) 
+      res.user.updateProfile({displayName:username}).then(()=>{
+        firebase.firestore().collection('users').add({
+          id:res.user.uid,
+          username:username,
+          phone:phone
+        }).then(()=>{
+          history.push("/login")
+           
+        })
+
+      })
     })
   }
 
