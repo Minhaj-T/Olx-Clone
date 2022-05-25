@@ -1,13 +1,27 @@
-import React from 'react';
+import React,{useEffect,useState,useContext} from 'react';
+import { FirebaseContext } from '../../Store/Context';
+import { PostContext } from '../../Store/PostContext';
 
 import './View.css';
 function View() {
+const [userDetails, setUserDetails] = useState()
+const {postDetails}=useContext(PostContext)
+const {firebase}=useContext(FirebaseContext)
+useEffect(() => {
+ const {userId}= postDetails
+   firebase.firestore().collection('users').where('id','==',userId).get().then((res)=>{
+       res.forEach(doc => {
+         setUserDetails(doc.data())
+       });
+   })
+},[])
+
   return (
     <div className="viewParentDiv">
       <div className="imageShowDiv">
         <img
-          src="../../../Images/R15V3.jpg"
-          alt=""
+          src={postDetails.url}
+          alt="productimage"
         />
       </div>
       <div className="rightSection">
@@ -17,11 +31,11 @@ function View() {
           <p>Two Wheeler</p>
           <span>Tue May 04 2021</span>
         </div>
-        <div className="contactDetails">
+      { userDetails &&  <div className="contactDetails">
           <p>Seller details</p>
-          <p>No name</p>
+          <p>{userDetails.username}</p>
           <p>1234567890</p>
-        </div>
+        </div> }
       </div>
     </div>
   );
