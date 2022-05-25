@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useContext} from 'react';
+import {AuthContext} from '../../Store/Context'
 
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
@@ -7,6 +8,7 @@ import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
 function Header() {
+  const {user}=useContext(AuthContext)
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -34,10 +36,10 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+          <span>{user ? user.displayName :'Login'}</span>
           <hr />
         </div>
-
+         { user && <span>Log out</span>} 
         <div className="sellMenu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
