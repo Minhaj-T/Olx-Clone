@@ -162,3 +162,7 @@
     display: none;
   }
 }
+
+.brandName{
+  cursor: pointer;
+}

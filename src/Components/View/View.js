@@ -12,6 +12,7 @@ useEffect(() => {
    firebase.firestore().collection('users').where('id','==',userId).get().then((res)=>{
        res.forEach(doc => {
          setUserDetails(doc.data())
+         console.log(doc.data());
        });
    })
 },[])
@@ -26,15 +27,15 @@ useEffect(() => {
       </div>
       <div className="rightSection">
         <div className="productDetails">
-          <p>&#x20B9; 250000 </p>
-          <span>YAMAHA R15V3</span>
-          <p>Two Wheeler</p>
-          <span>Tue May 04 2021</span>
+          <p>&#x20B9; {postDetails.price} </p>
+          <span>{postDetails.name}</span>
+          <p>{postDetails.category}</p>
+          <span>{postDetails.createAt}</span>
         </div>
       { userDetails &&  <div className="contactDetails">
           <p>Seller details</p>
           <p>{userDetails.username}</p>
-          <p>1234567890</p>
+          <p>{userDetails.phone}</p>
         </div> }
       </div>
     </div>

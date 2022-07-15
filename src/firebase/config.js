@@ -4,13 +4,13 @@ import "firebase/firebase"
 import 'firebase/storage'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCPnDrbPUVcClIlW5uatHq-A-zMmeis8NM",
-    authDomain: "olx-clone-ae948.firebaseapp.com",
-    projectId: "olx-clone-ae948",
-    storageBucket: "olx-clone-ae948.appspot.com",
-    messagingSenderId: "699531156459",
-    appId: "1:699531156459:web:bf4abd6d627bf07d5157ae",
-    measurementId: "G-ZKMRYWRC5M"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APPID,
+    measurementId: process.env.REACT_APP_MEASURMENT_ID
   };
 
 export default firebase.initializeApp(firebaseConfig)
